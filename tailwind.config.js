@@ -11,6 +11,7 @@ export default {
         'primary': '#46ae7a',
         'secondary': '#9e3067',
         'secondary-light': '#b74b81',
+        'text': '#3d4e5d'
       },
     },
   },
