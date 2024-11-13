@@ -1,50 +1,72 @@
-# React + TypeScript + Vite
+# Proyecto 3 - Contador de Calorías
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este tercer proyecto consiste en implementar una aplicación CRUD en la que los
+usuarios puedan añadir, editar y eliminar alimentos o actividades físicas junto
+con la aproximación de calorías consumidas/quemadas, y ver un cálculo del
+balance calórico en tiempo real.
 
-Currently, two official plugins are available:
+En este caso se utiliza un `Reducer` de React para gestionar las operaciones de
+estado del contador de calorías, lo que permite una estructura de código más
+limpia y fácil de escalar.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Código del reducer utilizado (activity-reducer)
 
-## Expanding the ESLint configuration
+### Definición de las acciones posibles que se pueden realizar en el contador de calorías junto con sus payloads
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```typescript
+export type ActivityActions =
+  | { type: "SAVE_ACTIVITY"; payload: { newActivity: Activity } }
+  | { type: "SET_ACTIVE_ACTIVITY"; payload: { id: Activity["id"] } }
+  | { type: "UPDATE_ACTIVITY"; payload: { updatedActivity: Activity } }
+  | { type: "DELETE_ACTIVITY"; payload: { id: Activity["id"] } }
+  | { type: "RESET_ACTIVITIES" };
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Estado inicial del reducer a partir del almacenamiento local de la aplicación
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```typescript
+export const initialState: ActivityState = {
+  activities: localActivities(),
+  activeId: "",
+};
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### Implementación de activity-reducer
+
+```typescript
+export const activityReducer = (
+  state: ActivityState = initialState,
+  action: ActivityActions
+): ActivityState => {
+  switch (action.type) {
+    case "SAVE_ACTIVITY":
+      return {
+        ...
+      };
+
+    case "SET_ACTIVE_ACTIVITY":
+      return {
+        ...
+      };
+
+    case "UPDATE_ACTIVITY":
+      return {
+        ...
+      };
+
+    case "DELETE_ACTIVITY":
+      return {
+        ...
+      };
+
+    case "RESET_ACTIVITIES":
+      return {
+        ...
+      }
+    }
+
+    default:
+      return state;
+  }
+};
 ```
