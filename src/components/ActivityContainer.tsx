@@ -1,29 +1,10 @@
-import type { Activity } from "../types";
-import { categories } from "../data/categories";
-import { useMemo, Dispatch } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { ActivityActions } from "../reducers/activity-reducer";
 
-type ActivityContainerProps = {
-  activities: Activity[];
-  dispatch: Dispatch<ActivityActions>;
-};
+import { useActivity } from "../hooks/useActivity";
 
-const ActivityContainer = ({
-  activities,
-  dispatch,
-}: ActivityContainerProps) => {
-  const categoryName = useMemo(
-    () => (category: Activity["category"]) =>
-      categories.map((cat) => (cat.id === category ? cat.name : "")),
-    []
-  );
-
-  const isEmptyActivities = useMemo(
-    () => activities.length === 0,
-    [activities]
-  );
+const ActivityContainer = () => {
+  const { state, dispatch, isEmptyActivities, categoryName } = useActivity();
 
   return (
     <>
@@ -37,7 +18,7 @@ const ActivityContainer = ({
         </p>
       )}
 
-      {activities.map((activity) => (
+      {state.activities.map((activity) => (
         <div
           key={activity.id}
           className='px-5 py-10 bg-white mt-5 flex justify-between rounded-lg shadow-lg'

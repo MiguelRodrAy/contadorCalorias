@@ -1,11 +1,12 @@
 import Form from "./components/Form";
-import { useEffect, useMemo, useReducer } from "react";
-import { activityReducer, initialState } from "./reducers/activity-reducer";
+import { useEffect, useMemo } from "react";
 import ActivityContainer from "./components/ActivityContainer";
 import CaloryTracker from "./components/CaloryTracker";
 
+import { useActivity } from "./hooks/useActivity";
+
 function App() {
-  const [state, dispatch] = useReducer(activityReducer, initialState);
+  const { state, dispatch } = useActivity();
 
   const isEmptyActivities = () =>
     useMemo(() => state.activities.length === 0, [state.activities]);
@@ -49,18 +50,18 @@ function App() {
 
       <section className='bg-primary-light py-20 px-5'>
         <div className='max-w-4xl mx-auto'>
-          <Form dispatch={dispatch} state={state} />
+          <Form />
         </div>
       </section>
 
       <section className='bg-text py-10 px-5'>
         <div className='max-w-4xl mx-auto'>
-          <CaloryTracker activities={state.activities} />
+          <CaloryTracker />
         </div>
       </section>
 
       <section className=' p-10 mx-auto max-w-4xl rounded-md'>
-        <ActivityContainer activities={state.activities} dispatch={dispatch} />
+        <ActivityContainer />
       </section>
     </>
   );
