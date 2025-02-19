@@ -70,3 +70,7 @@ export const activityReducer = (
   }
 };
 ```
+## Actualización: Integración con Context API
+
+Para mejorar la gestión del estado de la aplicación y facilitar el acceso al estado desde distintos componentes evitando que se pase a estos por props, se ha implementado el uso de Context API.
+
